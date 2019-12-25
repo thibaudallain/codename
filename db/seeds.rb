@@ -5,3 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'csv'
+
+Word.destroy_all
+
+csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
+filepath = "db/words.csv"
+
+CSV.foreach(filepath, csv_options) do |row|
+  Word.create(word: row[0])
+end

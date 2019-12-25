@@ -1,0 +1,12 @@
+function spy() {
+  const guessbtn = document.getElementById('notshown');
+  const spybtn = document.getElementById('shown');
+  const guessAction = document.getElementById('guess');
+  const spyAction = document.getElementById('spy');
+  spybtn.classList.remove('masked');
+  guessbtn.classList.add('masked');
+  guessAction.classList.remove('active');
+  spyAction.classList.add('active');
+}
+
+spy();

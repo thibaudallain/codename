@@ -1,2 +1,50 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<% if @game.red > @game.blue %>
+  <div class="who red">
+    <p>Les rouges, vous commencez !</p>
+    <div class="btn-white-red btn-ok">OK</div>
+  </div>
+<% else %>
+  <div class="who blue">
+    <p>Les bleus, vous commencez !</p>
+    <div class="btn-white-blue btn-ok">OK</div>
+  </div>
+<% end %>
+
+<div class="actions">
+  <div id="guess" class="btn-action active">Je devine</div>
+  <div><%= link_to "Je suis espion", root_path, remote: true, data: { confirm: 'Attention à ne pas montrer la grille aux personnes qui devinent !' }, class: "btn-action", id: "spy" %></div>
+</div>
+<div class="container">
+  <div id="notshown" class="word-grid">
+    <% @list_of_words.each do |word| %>
+      <% if word.color == "red" %>
+        <div class="card red hidden"><%= "#{word.word.word}" %></div>
+      <% elsif word.color == "blue" %>
+        <div class="card blue hidden"><%= "#{word.word.word}" %></div>
+      <% elsif word.color == "white" %>
+        <div class="card white hidden"><%= "#{word.word.word}" %></div>
+      <% else %>
+        <div class="card black hidden"><%= "#{word.word.word}" %></div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div id="shown" class="word-grid masked">
+    <% @list_of_words.each do |word| %>
+      <% if word.color == "red" %>
+        <div class="card-spy red"><%= "#{word.word.word}" %></div>
+      <% elsif word.color == "blue" %>
+        <div class="card-spy blue"><%= "#{word.word.word}" %></div>
+      <% elsif word.color == "white" %>
+        <div class="card-spy white"><%= "#{word.word.word}" %></div>
+      <% else %>
+        <div class="card-spy black"><%= "#{word.word.word}" %></div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+
+<%= link_to "Nouvelle partie", root_path, data: { confirm: 'Vous perdrez toute la partie actuelle !' }, class: "new" %>
+
